@@ -114,6 +114,11 @@ void updateEncoderStateMachine()
         break; 
     
     case state2:
+        /* If A is 0 and B is 0, decrement 1 from count => state1
+           If A is 1 and B is 0, no count => state2
+           If A is 0 and B is 1, error count 1 => state4
+           If A is 1 and B is 1, increment 1 to count => state3*/
+
         if (channelAState && !channelBState)
         {
             state = state2;
@@ -136,6 +141,11 @@ void updateEncoderStateMachine()
         break;
     
     case state3:
+        /* If A is 0 and B is 0, error count 1 => state1
+           If A is 1 and B is 0, decrement 1 from count => state2
+           If A is 0 and B is 1, increment 1 to count => state4
+           If A is 1 and B is 1, no count => state3*/
+
          if (channelAState && !channelBState)
         {
             count--;
@@ -158,6 +168,11 @@ void updateEncoderStateMachine()
         break;
     
     case state4:
+        /* If A is 0 and B is 0, increment 1 to count => state1
+           If A is 1 and B is 0, error count 1 => state2
+           If A is 0 and B is 1, no count => state4
+           If A is 1 and B is 1, decrement 1 from count => state3*/
+
          if (channelAState && !channelBState)
         {
             error++;
